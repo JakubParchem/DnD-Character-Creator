@@ -7,9 +7,6 @@ import jakarta.persistence.Id;
 public class Race {
     @Id
     private Long id;
-//
-
-
 
     public void setId(Long id) {
         this.id = id;
