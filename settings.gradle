@@ -1,1 +1,3 @@
 rootProject.name = 'DnD_Character_Creator'
+
+include 'data'
