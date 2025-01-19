@@ -1,4 +1,4 @@
-package org.example.dnd_character_creator.data.model;
+package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -21,9 +21,9 @@ public class Subrace {
             inverseJoinColumns = @JoinColumn(name = "traits_id")
     )
     private List<Trait> traits;
-    @ManyToOne
-    @JoinColumn(name = "race_id")
-    private Race race;
+//@ManyToOne
+//@JoinColumn(name = "race_id")
+//private Race race;
     public String getId() {
         return id;
     }

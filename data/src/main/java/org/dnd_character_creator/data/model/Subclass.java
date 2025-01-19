@@ -1,24 +1,25 @@
-package org.example.dnd_character_creator.data.model;
+package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Class {
+public class Subclass {
     @Id
     private String id;
 
     @Column
     private String name;
 
-    private Short hit_die;
+    @Column
+    private String description;
 
-    @OneToMany(mappedBy = "aClass")
-    private List<Subclass> subclasses;
+//    @ManyToOne
+//    @JoinColumn(name = "class_id")
+//    private Class aClass;
 
     @ManyToMany
     private List<Spell> spells;
-
     public String getId() {
         return id;
     }
@@ -35,21 +36,21 @@ public class Class {
         this.name = name;
     }
 
-    public Short getHit_die() {
-        return hit_die;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHit_die(Short hit_die) {
-        this.hit_die = hit_die;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Subclass> getSubclasses() {
-        return subclasses;
-    }
-
-    public void setSubclasses(List<Subclass> subclasses) {
-        this.subclasses = subclasses;
-    }
+//    public Class getaClass() {
+//        return aClass;
+//    }
+//
+//    public void setaClass(Class aClass) {
+//        this.aClass = aClass;
+//    }
 
     public List<Spell> getSpells() {
         return spells;

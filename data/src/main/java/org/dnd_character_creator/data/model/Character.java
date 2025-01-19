@@ -1,4 +1,4 @@
-package org.example.dnd_character_creator.data.model;
+package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
 import java.util.List;

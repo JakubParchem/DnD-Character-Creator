@@ -1,25 +1,21 @@
-package org.example.dnd_character_creator.data.model;
+package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-public class Subclass {
+public class Race {
     @Id
     private String id;
-
     @Column
     private String name;
 
-    @Column
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "class_id")
-    private Class aClass;
-
-    @ManyToMany(mappedBy = "subclasses")
-    private List<Spell> spells;
+    @OneToMany
+    private List<Subrace> subraces;
+    @ManyToMany
+    private List<Trait> traits;
     public String getId() {
         return id;
     }
@@ -44,19 +40,19 @@ public class Subclass {
         this.description = description;
     }
 
-    public Class getaClass() {
-        return aClass;
+    public List<Subrace> getSubraces() {
+        return subraces;
     }
 
-    public void setaClass(Class aClass) {
-        this.aClass = aClass;
+    public void setSubraces(List<Subrace> subraces) {
+        this.subraces = subraces;
     }
 
-    public List<Spell> getSpells() {
-        return spells;
+    public List<Trait> getTraits() {
+        return traits;
     }
 
-    public void setSpells(List<Spell> spells) {
-        this.spells = spells;
+    public void setTraits(List<Trait> traits) {
+        this.traits = traits;
     }
 }
