@@ -3,7 +3,7 @@ plugins {
 
 }
 
-group = 'org.example'
+group = 'org.dnd_character_creator'
 version = '0.0.1-SNAPSHOT'
 
 java {

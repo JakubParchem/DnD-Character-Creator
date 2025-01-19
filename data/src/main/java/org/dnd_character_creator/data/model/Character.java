@@ -1,6 +1,8 @@
 package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Character {
@@ -17,9 +19,9 @@ public class Character {
     @OneToOne
     private Subrace subrace;
     @ManyToMany
-    private List<Spell> spells;
+    private List<Spell> spells=new ArrayList<>();
     @ManyToMany
-    private List<Trait> traits;
+    private List<Trait> traits=new ArrayList<>();
     public Long getId() {
         return id;
     }

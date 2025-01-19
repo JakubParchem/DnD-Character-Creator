@@ -1,6 +1,8 @@
 package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +13,7 @@ public class Subrace {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @ManyToMany
@@ -20,7 +22,7 @@ public class Subrace {
             joinColumns = @JoinColumn(name = "subraces_id"),
             inverseJoinColumns = @JoinColumn(name = "traits_id")
     )
-    private List<Trait> traits;
+    private List<Trait> traits=new ArrayList<>();
 //@ManyToOne
 //@JoinColumn(name = "race_id")
 //private Race race;

@@ -13,7 +13,7 @@ public class Trait {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
 //    @ManyToMany

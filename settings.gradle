@@ -1,5 +1,5 @@
-rootProject.name = 'dnd-character-creator'
+rootProject.name = 'dnd_character_creator'
 
 include 'data'
 include 'updater'
-include 'frontend'
+//include 'frontend'

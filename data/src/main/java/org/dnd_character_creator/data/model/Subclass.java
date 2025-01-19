@@ -1,6 +1,8 @@
 package org.dnd_character_creator.data.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +13,7 @@ public class Subclass {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
 //    @ManyToOne
@@ -19,7 +21,7 @@ public class Subclass {
 //    private Class aClass;
 
     @ManyToMany
-    private List<Spell> spells;
+    private List<Spell> spells=new ArrayList<>();
     public String getId() {
         return id;
     }

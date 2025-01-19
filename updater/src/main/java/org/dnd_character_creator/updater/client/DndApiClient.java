@@ -20,6 +20,9 @@ public class DndApiClient {
     ObjectMapper objectMapper = new ObjectMapper();
     int count;
     String description,url,response;
+    List<Spell> spells=new ArrayList<>();
+    List<Trait> traits=new ArrayList<>();
+    List<Subclass> subclasses=new ArrayList<>();
     JsonNode rootNode,resultsNode,results1Node;
     private final String baseUrl = "https://www.dnd5eapi.co";
 
@@ -36,9 +39,10 @@ public class DndApiClient {
         for (JsonNode result : resultsNode) {
             urls.add(result.get("url").asText());
         }
-        Trait trait=new Trait();
-        List<Trait> traits=new ArrayList<>();
+        traits=new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            Trait trait=new Trait();
+            System.out.println("Traits: [ "+(i+1)+" / "+count+" ]\n");
             response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
             rootNode = objectMapper.readTree(response);
             trait.setName(rootNode.get("name").asText());
@@ -49,7 +53,7 @@ public class DndApiClient {
                 description +=result.asText();
             }
             trait.setDescription(description);
-            traits.add(trait);
+            traits.addLast(trait);
         }
         return traits;
     }
@@ -63,9 +67,10 @@ public class DndApiClient {
         for (JsonNode result : resultsNode) {
             urls.add(result.get("url").asText());
         }
-        Spell spell=new Spell();
-        List<Spell> spells=new ArrayList<>();
+        spells=new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            Spell spell=new Spell();
+            System.out.println("Spells: [ "+(i+1)+" / "+count+" ]\n");
             response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
             rootNode = objectMapper.readTree(response);
             spell.setName(rootNode.get("name").asText());
@@ -82,7 +87,9 @@ public class DndApiClient {
     }
 
     public List<Subclass> getSubclasses() throws JsonProcessingException {
-        List<Spell> spells=getSpells();
+        if(spells.isEmpty()){
+            spells=getSpells();
+        }
         url=baseUrl + "/api/subclasses";
         response=restTemplate.getForObject(url, String.class);
         rootNode = objectMapper.readTree(response);
@@ -92,9 +99,10 @@ public class DndApiClient {
         for (JsonNode result : resultsNode) {
             urls.add(result.get("url").asText());
         }
-        Subclass subclass=new Subclass();
-        List<Subclass> subclasses=new ArrayList<>();
+        subclasses=new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            Subclass subclass=new Subclass();
+            System.out.println("Subclasses: [ "+(i+1)+" / "+count+" ]\n");
             response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
             rootNode = objectMapper.readTree(response);
             subclass.setName(rootNode.get("name").asText());
@@ -106,20 +114,26 @@ public class DndApiClient {
             }
             subclass.setDescription(description);
             resultsNode=rootNode.get("spells");
-            for (JsonNode result : resultsNode) {
-                results1Node=result.get("spell");
-                subclass.getSpells().add(spells.stream().
-                        filter(spell -> spell.getId()
-                        .equals(results1Node.get("index").asText()))
-                        .findFirst().get());
+            if(!resultsNode.isEmpty()) {
+                for (JsonNode result : resultsNode) {
+                    results1Node = result.get("spell");
+                    subclass.getSpells().add(spells.stream().
+                            filter(spell -> spell.getId()
+                                    .equals(results1Node.get("index").asText()))
+                            .findFirst().get());
+                }
             }
             subclasses.add(subclass);
         }
         return subclasses;
     }
     public List<Class> getClasses() throws JsonProcessingException {
-        List<Spell> spells=getSpells();
-        List<Subclass> subclasses=getSubclasses();
+        if(spells.isEmpty()){
+            spells=getSpells();
+        }
+        if(subclasses.isEmpty()){
+            subclasses=getSubclasses();
+        }
         url=baseUrl + "/api/classes";
         response=restTemplate.getForObject(url, String.class);
         rootNode = objectMapper.readTree(response);
@@ -129,21 +143,33 @@ public class DndApiClient {
         for (JsonNode result : resultsNode) {
             urls.add(result.get("url").asText());
         }
-        Class aclass=new Class();
         List<Class> classes=new ArrayList<>();
         for (int i = 0; i < count; i++) {
+            System.out.println("Classes: [ "+(i+1)+" / "+count+" ]\n");
+            Class aclass=new Class();
             response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
             rootNode = objectMapper.readTree(response);
             aclass.setName(rootNode.get("name").asText());
             aclass.setId(rootNode.get("index").asText());
-
-            resultsNode=rootNode.get("spells");
-            for (JsonNode result : resultsNode) {
-                results1Node=result.get("spell");
-                aclass.getSpells().add(spells.stream().
-                        filter(spell -> spell.getId()
-                                .equals(results1Node.get("index").asText()))
-                        .findFirst().get());
+            aclass.setHit_die(rootNode.get("hit_die").asInt());
+            if(rootNode.get("spells")!=null) {
+                resultsNode = rootNode.get("spells");
+                for (JsonNode result : resultsNode) {
+                    results1Node = result.get("spell");
+                    aclass.getSpells().add(spells.stream().
+                            filter(spell -> spell.getId()
+                                    .equals(results1Node.get("index").asText()))
+                            .findFirst().get());
+                }
+            }
+            if(rootNode.get("subclasses")!=null) {
+                resultsNode = rootNode.get("subclasses");
+                for (JsonNode result : resultsNode) {
+                    aclass.getSubclasses().add(subclasses.stream().
+                            filter(subclass -> subclass.getId()
+                                    .equals(result.get("index").asText()))
+                            .findFirst().get());
+                }
             }
             classes.add(aclass);
         }
