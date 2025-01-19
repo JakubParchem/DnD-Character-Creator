@@ -16,10 +16,6 @@ public class Subclass {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-//    @ManyToOne
-//    @JoinColumn(name = "class_id")
-//    private Class aClass;
-
     @ManyToMany
     private List<Spell> spells=new ArrayList<>();
     public String getId() {

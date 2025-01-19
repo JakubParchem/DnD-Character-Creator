@@ -24,9 +24,6 @@ public class Subrace {
             inverseJoinColumns = @JoinColumn(name = "traits_id")
     )
     private List<Trait> traits=new ArrayList<>();
-//@ManyToOne
-//@JoinColumn(name = "race_id")
-//private Race race;
     public String getId() {
         return id;
     }

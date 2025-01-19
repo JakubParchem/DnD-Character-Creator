@@ -16,8 +16,6 @@ public class Trait {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-//    @ManyToMany
-//    private List<Subrace> subraces;
 
     public String getId() {
         return id;

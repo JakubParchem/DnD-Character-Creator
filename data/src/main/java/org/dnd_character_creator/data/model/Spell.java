@@ -15,8 +15,6 @@ public class Spell {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-//    @ManyToMany
-//    private List<Subclass> subclasses;
 
     public String getId() {
         return id;
