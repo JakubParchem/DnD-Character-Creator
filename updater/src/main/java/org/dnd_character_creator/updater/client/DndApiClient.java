@@ -3,10 +3,8 @@ package org.dnd_character_creator.updater.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.dnd_character_creator.data.model.*;
 import org.dnd_character_creator.data.model.Class;
-import org.dnd_character_creator.data.model.Spell;
-import org.dnd_character_creator.data.model.Subclass;
-import org.dnd_character_creator.data.model.Trait;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +21,7 @@ public class DndApiClient {
     List<Spell> spells=new ArrayList<>();
     List<Trait> traits=new ArrayList<>();
     List<Subclass> subclasses=new ArrayList<>();
+    List<Subrace> subraces=new ArrayList<>();
     JsonNode rootNode,resultsNode,results1Node;
     private final String baseUrl = "https://www.dnd5eapi.co";
 
@@ -85,7 +84,6 @@ public class DndApiClient {
         }
         return spells;
     }
-
     public List<Subclass> getSubclasses() throws JsonProcessingException {
         if(spells.isEmpty()){
             spells=getSpells();
@@ -152,16 +150,6 @@ public class DndApiClient {
             aclass.setName(rootNode.get("name").asText());
             aclass.setId(rootNode.get("index").asText());
             aclass.setHit_die(rootNode.get("hit_die").asInt());
-            if(rootNode.get("spells")!=null) {
-                resultsNode = rootNode.get("spells");
-                for (JsonNode result : resultsNode) {
-                    results1Node = result.get("spell");
-                    aclass.getSpells().add(spells.stream().
-                            filter(spell -> spell.getId()
-                                    .equals(results1Node.get("index").asText()))
-                            .findFirst().get());
-                }
-            }
             if(rootNode.get("subclasses")!=null) {
                 resultsNode = rootNode.get("subclasses");
                 for (JsonNode result : resultsNode) {
@@ -171,8 +159,110 @@ public class DndApiClient {
                             .findFirst().get());
                 }
             }
+            response=restTemplate.getForObject(baseUrl + urls.get(i)+"/spells", String.class);
+            rootNode = objectMapper.readTree(response);
+            if(rootNode.get("results")!=null) {
+                resultsNode = rootNode.get("results");
+                for (JsonNode result : resultsNode) {
+                    if(result.get("level").asInt()==1){
+                        break;
+                    }
+                    aclass.getSpells().add(spells.stream().
+                            filter(spell -> spell.getId()
+                                    .equals(result.get("index").asText()))
+                            .findFirst().get());
+                }
+            }
+
             classes.add(aclass);
         }
         return classes;
+    }
+    public List<Subrace> getSubraces() throws JsonProcessingException {
+        if(traits.isEmpty()){
+            traits=getTraits();
+        }
+        url=baseUrl + "/api/subraces";
+        response=restTemplate.getForObject(url, String.class);
+        rootNode = objectMapper.readTree(response);
+        count = rootNode.get("count").asInt();
+        resultsNode = rootNode.get("results");
+        List<String> urls = new ArrayList<>();
+        for (JsonNode result : resultsNode) {
+            urls.add(result.get("url").asText());
+        }
+        subraces=new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Subrace subrace=new Subrace();
+            System.out.println("Subraces: [ "+(i+1)+" / "+count+" ]\n");
+            response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
+            rootNode = objectMapper.readTree(response);
+            subrace.setName(rootNode.get("name").asText());
+            subrace.setId(rootNode.get("index").asText());
+            subrace.setDescription(rootNode.get("desc").asText());
+            resultsNode=rootNode.get("racial_traits");
+            for (JsonNode result : resultsNode) {
+                subrace.getTraits().add(traits.stream().
+                        filter(trait -> trait.getId()
+                                .equals(result.get("index").asText()))
+                        .findFirst().get());
+            }
+            subraces.add(subrace);
+        }
+        return subraces;
+    }
+    public List<Race> getRaces() throws JsonProcessingException {
+        if(traits.isEmpty()){
+            traits=getTraits();
+        }
+        if(subraces.isEmpty()){
+            subraces=getSubraces();
+        }
+        url=baseUrl + "/api/races";
+        response=restTemplate.getForObject(url, String.class);
+        rootNode = objectMapper.readTree(response);
+        count = rootNode.get("count").asInt();
+        resultsNode = rootNode.get("results");
+        List<String> urls = new ArrayList<>();
+        for (JsonNode result : resultsNode) {
+            urls.add(result.get("url").asText());
+        }
+        List<Race> races=new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            System.out.println("Races: [ "+(i+1)+" / "+count+" ]\n");
+            Race race=new Race();
+            response=restTemplate.getForObject(baseUrl + urls.get(i), String.class);
+            rootNode = objectMapper.readTree(response);
+            race.setName(rootNode.get("name").asText());
+            race.setId(rootNode.get("index").asText());
+            description="";
+            description+=rootNode.get("age").asText()+"<br>";
+            description+=rootNode.get("alignment").asText()+"<br>";
+            description+=rootNode.get("size_description").asText()+"<br>";
+            description+=rootNode.get("language_desc").asText();
+            race.setDescription(description);
+            if(rootNode.get("subraces")!=null) {
+                resultsNode = rootNode.get("subraces");
+                for (JsonNode result : resultsNode) {
+                    race.getSubraces().add(subraces.stream().
+                            filter(subrace -> subrace.getId()
+                                    .equals(result.get("index").asText()))
+                            .findFirst().get());
+                }
+            }
+            if(rootNode.get("traits")!=null) {
+                resultsNode = rootNode.get("traits");
+                for (JsonNode result : resultsNode) {
+                    race.getTraits().add(traits.stream().
+                            filter(trait -> trait.getId()
+                                    .equals(result.get("index").asText()))
+                            .findFirst().get());
+                }
+            }
+
+
+            races.add(race);
+        }
+        return races;
     }
 }

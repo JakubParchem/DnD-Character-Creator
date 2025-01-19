@@ -8,9 +8,10 @@ import java.util.List;
 @Entity
 public class Subrace {
     @Id
+    @Column(columnDefinition = "TEXT")
     private String id;
 
-    @Column
+    @Column(name = "name", columnDefinition = "TEXT")
     private String name;
 
     @Column(name = "description", columnDefinition = "TEXT")

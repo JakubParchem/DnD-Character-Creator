@@ -22,6 +22,8 @@ public class UpdaterService {
     private SubclassRepository subclassRepository;
     @Autowired
     private ClassRepository classRepository;
+    @Autowired
+    private SubraceRepository subraceRepository;
     public UpdaterService(DndApiClient apiClient) {
         this.apiClient = apiClient;
     }
@@ -29,26 +31,39 @@ public class UpdaterService {
     @Transactional
     @Async
     public void updateTraits() throws JsonProcessingException {
-        traitRepository.deleteAll();
         traitRepository.saveAll(apiClient.getTraits());
     }
     public void updateSpells() throws JsonProcessingException {
-        spellRepository.deleteAll();
         spellRepository.saveAll(apiClient.getSpells());
     }
     public void updateSubclasses() throws JsonProcessingException {
-        subclassRepository.deleteAll();
         subclassRepository.saveAll(apiClient.getSubclasses());
     }
     public void updateClasses() throws JsonProcessingException {
-        classRepository.deleteAll();
         classRepository.saveAll(apiClient.getClasses());
+    }
+    public void updateSubraces() throws JsonProcessingException {
+        subraceRepository.saveAll(apiClient.getSubraces());
+    }
+    public void updateRaces() throws JsonProcessingException {
+        raceRepository.saveAll(apiClient.getRaces());
+    }
+    public void deleteAll() {
+        raceRepository.deleteAll();
+        classRepository.deleteAll();
+        subclassRepository.deleteAll();
+        subraceRepository.deleteAll();
+        spellRepository.deleteAll();
+        traitRepository.deleteAll();
     }
 
     public void updateAll() throws JsonProcessingException {
+        deleteAll();
         updateSpells();
         updateTraits();
         updateSubclasses();
-        //updateClasses();
+        updateSubraces();
+        updateClasses();
+        updateRaces();
     }
 }

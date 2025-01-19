@@ -11,7 +11,7 @@ public class Race {
     private String id;
     @Column
     private String name;
-
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @OneToMany
