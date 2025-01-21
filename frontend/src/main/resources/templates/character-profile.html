@@ -6,49 +6,110 @@
     <title>Character Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Cinzel', serif; /* Adding a medieval-style font */
             margin: 20px;
-            background-color: #f9f9f9;
-            color: #333;
+            background: #f4efe5; /* Parchment-like background */
+            color: #2b1b0e; /* Dark brown text for ink-like appearance */
         }
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: #fff;
+            background: #fff8e7; /* Slightly darker parchment background */
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid #5a3921; /* Dark brown border */
+            border-radius: 8px;
         }
+
         h1 {
             text-align: center;
-            color: #444;
+            color: #5a3921; /* Dark brown for headings */
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow */
         }
-        .section {
-            margin-bottom: 20px;
-        }
+
         .section h2 {
-            border-bottom: 2px solid #ddd;
+            border-bottom: 2px solid #5a3921;
             padding-bottom: 5px;
+            color: #5a3921;
+            font-size: 1.8em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle shadow */
         }
+
         .section ul {
             list-style: none;
             padding: 0;
         }
+
         .section ul li {
-            padding: 5px 0;
+            padding: 8px 0;
+            font-size: 1.1em;
+            border-bottom: 1px dashed #8a5c2d; /* Dashed line for hand-drawn effect */
         }
+
+        .section ul li:last-child {
+            border-bottom: none;
+        }
+
         .button-container {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Space between buttons */
             margin-top: 20px;
         }
+
         .button-container a {
             text-decoration: none;
-            background-color: #ff6666;
-            color: white;
+            background-color: #8a5c2d; /* Rich brown color for buttons */
+            color: #fff8e7; /* Parchment white text */
             padding: 10px 20px;
             border-radius: 5px;
+            font-weight: bold;
+            border: 2px solid #5a3921; /* Dark brown border */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle shadow */
         }
+
         .button-container a:hover {
-            background-color: #cc3333;
+            background-color: #5a3921; /* Darker brown on hover */
+        }
+
+        button {
+            background-color: #8a5c2d;
+            color: #fff8e7;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 2px solid #5a3921;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #5a3921; /* Darker brown on hover */
+        }
+
+        /* Add a subtle parchment texture to the background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'); /* Parchment texture */
+            opacity: 0.3;
+            z-index: -1; /* Behind the content */
+        }
+
+        /* Decorative sword divider for the section headings */
+        .section h2::after {
+            content: '⚔';
+            font-size: 1.5em;
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+            color: #5a3921;
         }
     </style>
 </head>
