@@ -1,0 +1,133 @@
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.button-group button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+}
+label{
+    padding: 10px;
+}
+.button-group button.selected {
+    background-color: #008CBA;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+button{
+    margin: 10px;
+}
+body {
+    font-family: 'Cinzel', serif; /* Add a serif font like Cinzel for a medieval touch */
+    margin: 20px;
+    background: #f4efe5; /* A parchment-like light beige background */
+    color: #2b1b0e; /* Dark brown for text, reminiscent of ink */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff8e7; /* Slightly darker parchment color */
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid #5a3921; /* Dark brown border for a solid feel */
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #5a3921; /* Same dark brown as the border */
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section h2 {
+    border-bottom: 2px solid #5a3921;
+    padding-bottom: 5px;
+    color: #5a3921;
+    font-size: 1.8em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.section ul li {
+    padding: 8px 0;
+    font-size: 1.1em;
+    border-bottom: 1px dashed #8a5c2d; /* Dashed line for a scroll or hand-drawn effect */
+}
+
+.section ul li:last-child {
+    border-bottom: none;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container a {
+    text-decoration: none;
+    background-color: #8a5c2d; /* Rich brown for buttons */
+    color: #fff8e7; /* Parchment white for text */
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 2px solid #5a3921;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.button-container a:hover {
+    background-color: #5a3921; /* Darker brown on hover */
+}
+
+button {
+    background-color: #8a5c2d;
+    color: #fff8e7;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 2px solid #5a3921;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+    background-color: #5a3921;
+}
+
+/* Add a subtle parchment texture for the body */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png'); /* Free parchment texture */
+    opacity: 0.3; /* Subtle texture */
+    z-index: -1; /* Place it behind all content */
+}
+
+/* Add a decorative divider for a medieval vibe */
+.section h2::after {
+    content: '⚔';
+    font-size: 1.5em;
+    display: block;
+    margin: 10px auto;
+    text-align: center;
+    color: #5a3921;
+}

@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-
 }
 
 group = 'org.dnd_character_creator'
@@ -17,11 +16,28 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation project(":data")
+    // Spring Boot Starter Web - do obsługi aplikacji webowej
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Thymeleaf - do renderowania HTML w backendzie
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // JPA i PostgreSQL
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql'
+
+    // DevTools - ułatwia rozwój aplikacji
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Logging
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+
+    // Opcjonalnie, jeśli masz inne zależności jak np. JavaScript/Bootstrap
+    implementation 'org.webjars:bootstrap:5.1.0'  // Dodaj Bootstrapa, jeśli potrzebujesz
+    implementation 'org.webjars:jquery:3.6.0'    // Jeśli używasz jQuery
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {

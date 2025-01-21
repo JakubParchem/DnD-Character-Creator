@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="body">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Character</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="form-container">
+    <h2>Create Your Character</h2>
+    <form th:action="@{/create-character}" method="post">
+        <label for="name">Character Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter character name" required />
+        <label for="race">Race</label>
+        <div id="races" class="button-group">
+            <div th:each="race : ${races}">
+                <button type="button" th:id="'race-' + ${race.id}" class="select-race-button" th:data-id="${race.id}" th:text="${race.name}"></button>
+            </div>
+        </div>
+        <input type="hidden" id="selected-race" name="raceId" required/>
+        <div id="subrace-fragment"></div>
+
+        <label for="aClass">Class</label>
+        <div id="classes" class="button-group">
+            <div th:each="clazz : ${classes}">
+                <button type="button" th:id="'class-' + ${clazz.id}" class="select-class-button" th:data-id="${clazz.id}" th:text="${clazz.name}"></button>
+            </div>
+        </div>
+        <input type="hidden" id="selected-class" name="classId" required/>
+
+        <div id="subclass-fragment"></div>
+
+        <input type="hidden" id="selected-subclass" name="subclassId" required/>
+
+        <input type="hidden" id="selected-subrace" name="subraceId" />
+
+        <button type="submit">Create Character</button>
+    </form>
+</div>
+
+<!-- JavaScript -->
+<script src="/js/script.js"></script>
+</body>
+</html>

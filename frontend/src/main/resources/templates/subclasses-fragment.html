@@ -1,0 +1,10 @@
+<div id="subclass-section">
+    <label for="subclasses">Subclass</label>
+    <div id="subclasses" class="button-group">
+        <div th:each="subclass : ${subclasses}">
+            <button type="button" th:text="${subclass.name}" th:id="'subclass-' + ${subclass.id}"
+                    class="select-subclass-button" th:attr="data-id=${subclass.id}">
+            </button>
+        </div>
+    </div>
+</div>

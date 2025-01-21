@@ -1,0 +1,10 @@
+<div id="subrace-section">
+    <label for="subraces">Subrace</label>
+    <div id="subraces" class="button-group">
+        <div th:each="subrace : ${subraces}">
+            <button type="button" th:text="${subrace.name}" th:id="'subrace-' + ${subrace.id}"
+                    class="select-subrace-button" th:attr="data-id=${subrace.id}">
+            </button>
+        </div>
+    </div>
+</div>

@@ -4,19 +4,23 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
 @Entity
 public class Character {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     @Column
     private String name;
-    @OneToOne
+    @ManyToOne
     private Class aClass;
-    @OneToOne
+    @ManyToOne
     private Subclass subclass;
-    @OneToOne
+    @ManyToOne
     private Race race;
-    @OneToOne
+    @ManyToOne
     private Subrace subrace;
     @ManyToMany
     private List<Spell> spells=new ArrayList<>();

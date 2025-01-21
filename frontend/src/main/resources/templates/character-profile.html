@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .section ul li {
+            padding: 5px 0;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-container a {
+            text-decoration: none;
+            background-color: #ff6666;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .button-container a:hover {
+            background-color: #cc3333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Character Profile</h1>
+    <div class="section">
+        <h2>Name</h2>
+        <p><strong>Name:</strong> <span th:text="${name}"></span></p>
+    </div>
+    <div class="section">
+        <h2>Race</h2>
+        <p><strong>Race:</strong> <span th:text="${race}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${raceDescription}"></span></p>
+        <p><strong>Subrace:</strong> <span th:text="${subrace}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${subraceDescription}"></span></p>
+    </div>
+    <div class="section">
+        <h2>Class</h2>
+        <p><strong>Class:</strong> <span th:text="${class}"></span></p>
+        <p><strong>Subclass:</strong> <span th:text="${subclass}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${subclassDescription}"></span></p>
+    </div>
+
+    <div class="section">
+        <h2>Spells</h2>
+        <ul>
+            <li th:each="spell : ${spells}">
+                <strong th:text="${spell.name}"></strong>: <span th:text="${spell.description}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Traits</h2>
+        <ul>
+            <li th:each="trait : ${traits}">
+                <strong th:text="${trait.name}"></strong>: <span th:text="${trait.description}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="button-container">
+        <a href="/create-character">Create Another Character</a>
+    </div>
+</div>
+</body>
+</html>
